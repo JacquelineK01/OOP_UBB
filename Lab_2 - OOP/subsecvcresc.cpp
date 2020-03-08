@@ -25,9 +25,14 @@ pair<int, int> LongestConsecutiveSec(int n, int v[100])
         maxi = len;
         maxIndex = n - maxi;
     }
-
-    pair<int, int> pereche;
-    pereche.first = maxIndex;
-    pereche.second = maxi + maxIndex - 1;
+     pair<int, int> pereche;
+    if(maxIndex == 0 && maxi == 1){
+     pereche.first = 1;
+     pereche.second = 1;
+    }
+    else{
+     pereche.first = maxIndex;
+     pereche.second = maxi + maxIndex - 1;
+    }
     return pereche;
 }

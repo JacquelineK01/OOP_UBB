@@ -1,0 +1,40 @@
+# depslib dependency file v1.0
+1583681256 source:c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\main.cpp
+	<iostream>
+	"citire.h"
+	"afisare.h"
+	"subsecvcresc.h"
+	"subsecvcifcom.h"
+	"test3.h"
+
+1583571963 source:c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\citire.cpp
+	<iostream>
+
+1583571804 c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\citire.h
+
+1583679000 source:c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\afisare.cpp
+	<iostream>
+
+1583678998 c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\afisare.h
+
+1583679142 source:c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\subsecvcresc.cpp
+	<iostream>
+
+1583679989 c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\subsecvcresc.h
+
+1583678875 source:c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\subsecvcifcom.cpp
+	<iostream>
+
+1583679208 c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\subsecvcifcom.h
+
+1583680279 c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\test3.h
+
+1583681143 source:c:\users\jacqueline\documents\facultate mate ubb\info 2\proiecte\subsecv\test3.cpp
+	<iostream>
+	"citire.h"
+	"afisare.h"
+	"subsecvcresc.h"
+	"subsecvcifcom.h"
+	"test3.h"
+	"assert.h"
+

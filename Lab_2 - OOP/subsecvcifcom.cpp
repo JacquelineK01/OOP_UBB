@@ -46,7 +46,13 @@ pair<int,int> LongestSubsecvCifCom(int n, int v[100])
    }
 
    pair <int, int> pereche;
+   if(pozMax == 0 && lungMax == 0){
+    pereche.first = 1;
+    pereche.second = 1;
+   }
+   else{
    pereche.first = pozMax;
    pereche.second = lungMax + pozMax;
+   }
    return pereche;
 }

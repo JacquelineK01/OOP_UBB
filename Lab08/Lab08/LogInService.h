@@ -6,7 +6,7 @@
 class LogInService
 {
 private:
-	char* fileName;
+	char fileName[100];
 public:
 	LogInService();
 	LogInService(const char* fileName);

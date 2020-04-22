@@ -2,14 +2,12 @@
 
 User::User(const char* username, const char* password)
 {
-	strcpy_s(this->username, strlen(username), username);
-	strcpy_s(this->password, strlen(password), password);
+	strcpy(this->username, username);
+	strcpy(this->password, password);
 }
 
 User::~User()
 {
-	delete[] username;
-	delete[] password;
 }
 
 bool User::operator==(const User& b)

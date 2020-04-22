@@ -1,29 +1,25 @@
 #include "FileRepository.h"
-
+#include <iostream>
 FileRepository::FileRepository(const char* airplaneTripsFileName, const char* busTripsFileName, const char* writeFileName, bool textOrCSV)
 {
-	strcpy_s(this->airplaneTripsFileName, strlen(airplaneTripsFileName), airplaneTripsFileName);
-	strcpy_s(this->busTripsFileName, strlen(busTripsFileName), busTripsFileName);
-	strcpy_s(this->writeFileName, strlen(writeFileName), writeFileName);
+	strcpy(this->airplaneTripsFileName, airplaneTripsFileName);
+	strcpy(this->busTripsFileName, busTripsFileName);
+	strcpy(this->writeFileName, writeFileName);
+	loadAirplaneTripsFromFile();
+	loadBusTripsFromFile();
 	this->textOrCSV = textOrCSV;
 }
 
 FileRepository::FileRepository()
 {
-	strcpy_s(this->airplaneTripsFileName, 1," ");
-	strcpy_s(this->busTripsFileName, 1, " ");
-	strcpy_s(this->writeFileName, 1, " ");
+	strcpy(this->airplaneTripsFileName," ");
+	strcpy(this->busTripsFileName, " ");
+	strcpy(this->writeFileName, " ");
 	this->textOrCSV = 0;
 }
 
 FileRepository::~FileRepository()
 {
-	if (airplaneTripsFileName)
-		delete[] airplaneTripsFileName;
-	if (busTripsFileName)
-		delete[] busTripsFileName;
-	if (writeFileName)
-		delete[] writeFileName;
 }
 
 void FileRepository::loadBusTripsFromFile()
@@ -31,9 +27,9 @@ void FileRepository::loadBusTripsFromFile()
 	this->calatoriiAutobuz = {};
 	CalatorieAutobuz calatorie;
 	int cod;
-	char* localitate_plecare;
-	char* localitate_destinatie;
-	char* data_plecarii;
+	char localitate_plecare[100];
+	char localitate_destinatie[100];
+	char data_plecarii[100];
 	int nr_loc_totale;
 	int nr_loc_rezervate;
 	int nr_zile;
@@ -51,9 +47,9 @@ void FileRepository::loadAirplaneTripsFromFile()
 	this->calatoriiAvion = {};
 	CalatorieAvion calatorie;
 	int cod;
-	char* localitate_plecare;
-	char* localitate_destinatie;
-	char* data_plecarii;
+	char localitate_plecare[100];
+	char localitate_destinatie[100];
+	char data_plecarii[100];
 	int nr_loc_totale;
 	int nr_loc_rezervate;
 	bool escala;
@@ -66,7 +62,7 @@ void FileRepository::loadAirplaneTripsFromFile()
 	fin.close();
 }
 
-void FileRepository::writeTripsToCSVFile()
+void FileRepository::writeTripsToCSVFile(std::vector<CalatorieAutobuz> calatoriiAutobuz, std::vector<CalatorieAvion> calatoriiAvion)
 {
 	std::ofstream fout(writeFileName);
 	fout << "Cod,Plecare,Destinatie,Data,Durata(zile),Escala,Nr. Locuri totale,Nr. Locuri Rezervate\n";
@@ -74,8 +70,9 @@ void FileRepository::writeTripsToCSVFile()
 		fout << '"' << calatoriiAutobuz[i].getCod() << "\","
 			<< '"' << calatoriiAutobuz[i].getLocalitatePlecare() << "\","
 			<< '"' << calatoriiAutobuz[i].getLocalitateDestinatie() << "\","
+			<< '"' << calatoriiAutobuz[i].getDataPlecarii() << "\","
 			<< '"' << calatoriiAutobuz[i].getNrZileDurata() << "\","
-			<< '"' << " " << "\","
+			<< '"' << "-" << "\","
 			<< '"' << calatoriiAutobuz[i].getNrLocTotale() << "\","
 			<< '"' << calatoriiAutobuz[i].getNrLocRezervate() << '"' << '\n';
 	}
@@ -83,6 +80,7 @@ void FileRepository::writeTripsToCSVFile()
 		fout << '"' << calatoriiAvion[i].getCod() << "\","
 			<< '"' << calatoriiAvion[i].getLocalitatePlecare() << "\","
 			<< '"' << calatoriiAvion[i].getLocalitateDestinatie() << "\","
+			<< '"' << calatoriiAvion[i].getDataPlecarii() << "\","
 			<< '"' << " " << "\",";
 		if (calatoriiAvion[i].getEscala() == 1)
 			fout << '"' << "DA" << "\",";
@@ -96,9 +94,14 @@ void FileRepository::writeTripsToCSVFile()
 void FileRepository::changeRepoType(bool textOrCSV)
 {
 	this->textOrCSV = textOrCSV;
+	if (textOrCSV == 1) {
+		writeFileName[strlen(writeFileName) - 1] = 'V';
+		writeFileName[strlen(writeFileName) - 2] = 'S';
+		writeFileName[strlen(writeFileName) - 3] = 'C';
+	}
 }
 
-void FileRepository::writeTripsToTxtFile()
+void FileRepository::writeTripsToTxtFile(std::vector<CalatorieAutobuz> calatoriiAutobuz, std::vector<CalatorieAvion> calatoriiAvion)
 {
 	std::ofstream fout(writeFileName);
 	for (int i = 0; i < calatoriiAutobuz.size(); ++i)
@@ -126,22 +129,30 @@ std::vector<CalatorieAvion> FileRepository::getAllAirplaneTrips()
 
 void FileRepository::rezervaLocuri(int cod, int nr_locuri)
 {
-	CalatorieAutobuz calatorie = CalatorieAutobuz{ cod, "Test", "Test", "15.05.2015", 13, 20, 15 };
 	bool gasit = 0;
 	for(int i = 0; i < calatoriiAutobuz.size() && !gasit; ++i)
 		if (calatoriiAutobuz[i].getCod() == cod)
 		{
 			gasit = 1;
-			if (nr_locuri > calatoriiAutobuz[i].getNrLocTotale - calatoriiAutobuz[i].getNrLocRezervate[i])
-				throw RepoException("Numar de locuri indisponibil") ;
+			if (nr_locuri > calatoriiAutobuz[i].getNrLocTotale() - calatoriiAutobuz[i].getNrLocRezervate())
+				throw RepoException("Numar de locuri indisponibil");
+			else
+				calatoriiAutobuz[i].setNrLocRezervate(nr_locuri + calatoriiAutobuz[i].getNrLocRezervate());
 		}
 	for (int i = 0; i < calatoriiAvion.size() && !gasit; ++i)
 		if (calatoriiAvion[i].getCod() == cod)
 		{
 			gasit = 1;
-			if (nr_locuri > calatoriiAvion[i].getNrLocTotale - calatoriiAvion[i].getNrLocRezervate[i])
+			if (nr_locuri > calatoriiAvion[i].getNrLocTotale() - calatoriiAvion[i].getNrLocRezervate())
 				throw RepoException("Numar de locuri indisponibil");
+			else
+				calatoriiAvion[i].setNrLocRezervate(nr_locuri + calatoriiAvion[i].getNrLocRezervate());
 		}
 	if (!gasit)
 		throw RepoException("Cod invalid");
+	else
+		if (textOrCSV == 0)
+			writeTripsToTxtFile(calatoriiAutobuz, calatoriiAvion);
+		else
+			writeTripsToCSVFile(calatoriiAutobuz, calatoriiAvion);
 }

@@ -12,13 +12,10 @@ CalatorieAvion::CalatorieAvion(int cod, const char* localitate_plecare, const ch
 CalatorieAvion::CalatorieAvion(const CalatorieAvion& b) {
 	this->cod = b.cod;
 
-	this->localitate_plecare = new char[strlen(b.localitate_plecare) + 1];
 	strcpy_s(this->localitate_plecare, strlen(b.localitate_plecare) + 1, b.localitate_plecare);
 
-	this->localitate_destinatie = new char[strlen(b.localitate_destinatie) + 1];
 	strcpy_s(this->localitate_destinatie, strlen(b.localitate_destinatie) + 1, b.localitate_destinatie);
 
-	this->data_plecarii = new char[strlen(b.data_plecarii) + 1];
 	strcpy_s(this->data_plecarii, strlen(b.data_plecarii) + 1, b.data_plecarii);
 
 	this->esteEscala = b.esteEscala;
@@ -41,24 +38,6 @@ void CalatorieAvion::setEscala(bool x)
 CalatorieAvion::~CalatorieAvion()
 {
 	this->cod = 0;
-
-	if (this->localitate_plecare)
-	{
-		delete[] this->localitate_plecare;
-		this->localitate_plecare == NULL;
-	}
-
-	if (this->localitate_destinatie)
-	{
-		delete[] this->localitate_destinatie;
-		this->localitate_destinatie == NULL;
-	}
-
-	if (this->data_plecarii)
-	{
-		delete[] this->data_plecarii;
-		this->data_plecarii == NULL;
-	}
 
 	this->esteEscala = 0;
 

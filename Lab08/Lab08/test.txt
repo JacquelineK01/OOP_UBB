@@ -1,0 +1,6 @@
+Cod: 1 Plecare: Bacau Destinatie: Test Data: 13.04.2012 Durata(zile): 5 Nr.Locuri Totale:130 Nr.Locuri Rezervate: 85
+Cod: 2 Plecare: Arad Destinatie: Sibiu Data: 14.04.2016 Durata(zile): 3 Nr.Locuri Totale:10 Nr.Locuri Rezervate: 3
+Cod: 7 Plecare: Cluj Destinatie: Constanta Data: 14.04.2012 Durata(zile): 1 Nr.Locuri Totale:13 Nr.Locuri Rezervate: 11
+Cod: 3 Plecare: Alba Destinatie: Test Data: 14.04.2012 Escala: NU Nr.Locuri Totale:130 Nr.Locuri Rezervate: 85
+Cod: 4 Plecare: Alba Destinatie: Bayern Data: 14.04.2012 Escala: DA Nr.Locuri Totale:10 Nr.Locuri Rezervate: 3
+Cod: 5 Plecare: Cluj Destinatie: Test Data: 14.04.2012 Escala: NU Nr.Locuri Totale:13 Nr.Locuri Rezervate: 2

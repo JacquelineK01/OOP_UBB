@@ -4,9 +4,9 @@ class Calatorie
 {
 protected:
 	int cod;
-	char* localitate_plecare;
-	char* localitate_destinatie;
-	char* data_plecarii;
+	char localitate_plecare[100];
+	char localitate_destinatie[100];
+	char data_plecarii[100];
 	int nr_loc_totale;
 	int nr_loc_rezervate;
 public:

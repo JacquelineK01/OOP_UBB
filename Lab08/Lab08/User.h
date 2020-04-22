@@ -3,8 +3,8 @@
 class User
 {
 private:
-	char* username;
-	char* password;
+	char username[100];
+	char password[100];
 public:
 	User(const char* username, const char* password);
 	~User();

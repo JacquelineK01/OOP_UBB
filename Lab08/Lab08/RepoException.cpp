@@ -1,10 +1,10 @@
 #include "RepoException.h"
-
+#include <iostream>
 RepoException::RepoException(const char* message)
 {
-	strcpy_s(error, 18, "Repository error: ");
-	strcpy_s(this->message, strlen(message), message);
-	strcat_s(error, strlen(message), message);
+	strcpy(error, "Repository error: ");
+	strcpy(this->message, message);
+	strcat(error, message);
 }
 
 const char* RepoException::what() const noexcept

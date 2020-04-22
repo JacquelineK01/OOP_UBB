@@ -1,13 +1,14 @@
 #include "LogInService.h"
 #include "User.h"
+#include <iostream>
 LogInService::LogInService()
 {
-	strcpy_s(this->fileName, 1, " ");
+	strcpy(this->fileName, " ");
 }
 
 LogInService::LogInService(const char* fileName)
 {
-	strcpy_s(this->fileName, strlen(fileName), fileName);
+	strcpy(this->fileName,fileName);
 
 }
 
